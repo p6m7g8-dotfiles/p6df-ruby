@@ -24,13 +24,13 @@ p6df::modules::ruby::home::symlink() {
 
   echo ln -fs $P6_DFZ_SRC_DIR/p6m7g8/p6df-ruby/share/.gemrc .gemrc
   echo ln -fs $P6_DFZ_SRC_DIR/p6m7g8/p6df-ruby/share/.gemrc .riplrc
-#  ln -fs $P6_DFZ_SRC_DIR/p6m7g8/p6df-ruby/share/.gemrc .gemrc
-#  ln -fs $P6_DFZ_SRC_DIR/p6m7g8/p6df-ruby/share/.gemrc .riplrc
+  ln -fs $P6_DFZ_SRC_DIR/p6m7g8/p6df-ruby/share/.gemrc .gemrc
+  ln -fs $P6_DFZ_SRC_DIR/p6m7g8/p6df-ruby/share/.gemrc .riplrc
 
   echo mkdir -p $P6_DFZ_SRC_DIR/rbenv/rbenv/plugins
   echo ln -fs $P6_DFZ_SRC_DIR/rbenv/ruby-build $P6_DFZ_SRC_DIR/rbenv/rbenv/plugins/ruby-build
-#  mkdir -p $P6_DFZ_SRC_DIR/rbenv/rbenv/plugins
-#  ln -fs $P6_DFZ_SRC_DIR/rbenv/ruby-build $P6_DFZ_SRC_DIR/rbenv/rbenv/plugins/ruby-build
+  mkdir -p $P6_DFZ_SRC_DIR/rbenv/rbenv/plugins
+  ln -fs $P6_DFZ_SRC_DIR/rbenv/ruby-build $P6_DFZ_SRC_DIR/rbenv/rbenv/plugins/ruby-build
 }
 
 ######################################################################
@@ -59,6 +59,9 @@ p6df::modules::ruby::langs() {
   local latest=$(rbenv install -l 2>&1 | grep -v "[a-z]" | grep "[0-9]" | tail -1)
   rbenv install $latest
   rbenv global $latest
+  rbenv rehash
+
+  gem install bundler
   rbenv rehash
 }
 
