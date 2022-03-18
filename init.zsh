@@ -22,10 +22,10 @@ p6df::modules::ruby::deps() {
 ######################################################################
 p6df::modules::ruby::home::symlink() {
 
-  echo ln -fs $P6_DFZ_SRC_DIR/p6m7g8/p6df-ruby/share/.gemrc .gemrc
-  echo ln -fs $P6_DFZ_SRC_DIR/p6m7g8/p6df-ruby/share/.gemrc .riplrc
-  ln -fs $P6_DFZ_SRC_DIR/p6m7g8/p6df-ruby/share/.gemrc .gemrc
-  ln -fs $P6_DFZ_SRC_DIR/p6m7g8/p6df-ruby/share/.gemrc .riplrc
+  echo ln -fs $P6_DFZ_SRC_P6M7G8_DIR/p6df-ruby/share/.gemrc .gemrc
+  echo ln -fs $P6_DFZ_SRC_P6M7G8_DIR/p6df-ruby/share/.gemrc .riplrc
+  ln -fs $P6_DFZ_SRC_P6M7G8_DIR/p6df-ruby/share/.gemrc .gemrc
+  ln -fs $P6_DFZ_SRC_P6M7G8_DIR/p6df-ruby/share/.gemrc .riplrc
 
   echo mkdir -p $P6_DFZ_SRC_DIR/rbenv/rbenv/plugins
   echo ln -fs $P6_DFZ_SRC_DIR/rbenv/ruby-build $P6_DFZ_SRC_DIR/rbenv/rbenv/plugins/ruby-build
