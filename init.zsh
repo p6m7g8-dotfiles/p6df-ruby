@@ -7,7 +7,7 @@
 ######################################################################
 p6df::modules::ruby::deps() {
   ModuleDeps=(
-    p6m7g8/p6common
+    p6m7g8-dotfiles/p6common
     rbenv/rbenv
     rbenv/ruby-build
   )
