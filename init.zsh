@@ -18,6 +18,8 @@ p6df::modules::ruby::deps() {
 #
 # Function: p6df::modules::ruby::home::symlink()
 #
+#  Depends:	 p6_dir p6_file
+#  Environment:	 P6_DFZ_SRC_DIR P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
 #>
 ######################################################################
 p6df::modules::ruby::home::symlink() {
@@ -34,6 +36,7 @@ p6df::modules::ruby::home::symlink() {
 #
 # Function: p6df::modules::ruby::langs()
 #
+#  Environment:	 P6_DFZ_SRC_DIR
 #>
 ######################################################################
 p6df::modules::ruby::langs() {
@@ -66,11 +69,28 @@ p6df::modules::ruby::langs() {
 #
 # Function: p6df::modules::ruby::init()
 #
+#  Environment:	 P6_DFZ_SRC_DIR
 #>
 ######################################################################
 p6df::modules::ruby::init() {
 
   p6df::modules::ruby::rbenv::init "$P6_DFZ_SRC_DIR"
+
+  p6df::modules::ruby::prompt::init
+}
+
+######################################################################
+#<
+#
+# Function: p6df::modules::ruby::prompt::init()
+#
+#>
+######################################################################
+p6df::modules::ruby::prompt::init() {
+
+   p6df::core::prompt::line::add "p6_lang_prompt_info"
+   p6df::core::prompt::line::add "p6_lang_envs_prompt_info"
+   p6df::core::prompt::lang::line::add rb
 }
 
 ######################################################################
@@ -81,6 +101,7 @@ p6df::modules::ruby::init() {
 #  Args:
 #	dir -
 #
+#  Environment:	 DISABLE_ENVS HAS_RBENV RBENV_ROOT
 #>
 ######################################################################
 p6df::modules::ruby::rbenv::init() {
@@ -102,36 +123,13 @@ p6df::modules::ruby::rbenv::init() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::ruby::rbenv::prompt::line()
+# Function: p6_rb_env_prompt_info()
 #
+#  Depends:	 p6_echo
+#  Environment:	 RBENV_ROOT
 #>
 ######################################################################
-p6df::modules::ruby::rbenv::prompt::line() {
+p6_rb_env_prompt_info() {
 
-  p6_echo "rbenv:\t  rbenv_root=$RBENV_ROOT"
-}
-
-######################################################################
-#<
-#
-# Function: p6df::modules::ruby::prompt::line()
-#
-#>
-######################################################################
-p6df::modules::ruby::prompt::line() {
-
-  p6_ruby_prompt_info
-}
-
-######################################################################
-#<
-#
-# Function: p6_ruby_prompt_info()
-#
-#>
-######################################################################
-p6_ruby_prompt_info() {
-
-  echo -n "rb:\t  "
-  p6_lang_version "rb"
+  p6_echo "rbenv_root=$RBENV_ROOT"
 }
