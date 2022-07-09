@@ -115,7 +115,7 @@ p6df::modules::ruby::rbenv::init() {
     export RBENV_ROOT
     export HAS_RBENV=1
 
-    p6df::util::path_if $RBENV_ROOT/bin
+    p6_path_if $RBENV_ROOT/bin
     eval "$(p6_run_code rbenv init - zsh)"
   fi
 }
