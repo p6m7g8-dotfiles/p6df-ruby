@@ -10,6 +10,7 @@ p6df::modules::ruby::deps() {
     p6m7g8-dotfiles/p6common
     rbenv/rbenv
     rbenv/ruby-build
+    jf/rbenv-gemset
   )
 }
 
@@ -29,6 +30,7 @@ p6df::modules::ruby::home::symlink() {
 
   p6_dir_mk "$P6_DFZ_SRC_DIR/rbenv/rbenv/plugins"
   p6_file_symlink "$P6_DFZ_SRC_DIR/rbenv/ruby-build" "$P6_DFZ_SRC_DIR/rbenv/rbenv/plugins/ruby-build"
+  p6_file_symlink "$P6_DFZ_SRC_DIR/jf/rbenv-gemset" "$P6_DFZ_SRC_DIR/rbenv/rbenv/plugins/rbenv-gemset"
 }
 
 ######################################################################
@@ -42,12 +44,16 @@ p6df::modules::ruby::home::symlink() {
 p6df::modules::ruby::langs() {
 
   (
-    cd $P6_DFZ_SRC_DIR/rbenv/rbenv
-    git pull
+    p6_dir_cd $P6_DFZ_SRC_DIR/rbenv/rbenv
+    p6_git_p6_pull
   )
   (
-    cd $P6_DFZ_SRC_DIR/rbenv/ruby-build
-    git pull
+    p6_dir_cd $P6_DFZ_SRC_DIR/rbenv/ruby-build
+    p6_git_p6_pull
+  )
+  (
+    p6_dir_cd $P6_DFZ_SRC_DIR/jf/rbenv-gemset
+    p6_git_p6_pull
   )
 
   # nuke the old one
@@ -88,9 +94,9 @@ p6df::modules::ruby::init() {
 ######################################################################
 p6df::modules::ruby::prompt::init() {
 
-   p6df::core::prompt::line::add "p6_lang_prompt_info"
-   p6df::core::prompt::line::add "p6_lang_envs_prompt_info"
-   p6df::core::prompt::lang::line::add rb
+  p6df::core::prompt::line::add "p6_lang_prompt_info"
+  p6df::core::prompt::line::add "p6_lang_envs_prompt_info"
+  p6df::core::prompt::lang::line::add rb
 }
 
 ######################################################################
@@ -131,5 +137,14 @@ p6df::modules::ruby::rbenv::init() {
 ######################################################################
 p6_rb_env_prompt_info() {
 
-  p6_echo "rbenv_root=$RBENV_ROOT"
+  local gemset=$(rbenv gemset active 2>&1 | awk '{print $1}')
+  local gem_home=$(gem env home)
+
+  p6_echo "rbenv_root:\t  $RBENV_ROOT"
+  if p6_string_eq "no active gemsets" "$gemset" || p6_string_eq "no" "$gemset"; then
+    p6_echo "gem_home:\t  $gem_home"
+  else
+    p6_echo "gem_home:\t  $gem_home"
+    p6_echo "gemset:\t\t  $gemset"
+  fi
 }
