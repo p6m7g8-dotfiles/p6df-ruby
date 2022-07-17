@@ -7,10 +7,13 @@
 ######################################################################
 p6df::modules::ruby::deps() {
   ModuleDeps=(
-    p6m7g8-dotfiles/p6common
+    p6m7g8-dotfiles/p6df-zsh
     rbenv/rbenv
     rbenv/ruby-build
     jf/rbenv-gemset
+    ohmyzsh/ohmyzsh:plugins/thor
+    ohmyzsh/ohmyzsh:plugins/bundler
+    ohmyzsh/ohmyzsh:plugins/ruby
   )
 }
 
@@ -19,7 +22,6 @@ p6df::modules::ruby::deps() {
 #
 # Function: p6df::modules::ruby::home::symlink()
 #
-#  Depends:	 p6_dir p6_file
 #  Environment:	 P6_DFZ_SRC_DIR P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
 #>
 ######################################################################
@@ -131,19 +133,19 @@ p6df::modules::ruby::rbenv::init() {
 #
 # Function: p6_rb_env_prompt_info()
 #
-#  Depends:	 p6_echo
 #  Environment:	 RBENV_ROOT
 #>
 ######################################################################
 p6_rb_env_prompt_info() {
 
-  local gemset=$(rbenv gemset active 2>&1 | awk '{print $1}')
+  local gemset=$(rbenv gemset active 2>&1 | awk '{print $1}' | grep -v rbenv)
   local gem_home=$(gem env home)
 
-  p6_echo "rbenv_root:\t  $RBENV_ROOT"
   if p6_string_eq "no active gemsets" "$gemset" || p6_string_eq "no" "$gemset"; then
+    p6_echo "rbenv_root:\t  $RBENV_ROOT"
     p6_echo "gem_home:\t  $gem_home"
   else
+    p6_echo "rbenv_root:\t  $RBENV_ROOT"
     p6_echo "gem_home:\t  $gem_home"
     p6_echo "gemset:\t\t  $gemset"
   fi
