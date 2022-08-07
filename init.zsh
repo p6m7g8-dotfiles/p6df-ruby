@@ -38,6 +38,18 @@ p6df::modules::ruby::home::symlink() {
 ######################################################################
 #<
 #
+# Function: p6df::modules::ruby::vscodes()
+#
+#>
+######################################################################
+p6df::modules::ruby::vscodes() {
+
+  code --install-extension bung87.vscode-gemfile
+}
+
+######################################################################
+#<
+#
 # Function: p6df::modules::ruby::langs()
 #
 #  Environment:	 P6_DFZ_SRC_DIR
@@ -45,18 +57,9 @@ p6df::modules::ruby::home::symlink() {
 ######################################################################
 p6df::modules::ruby::langs() {
 
-  (
-    p6_dir_cd $P6_DFZ_SRC_DIR/rbenv/rbenv
-    p6_git_p6_pull
-  )
-  (
-    p6_dir_cd $P6_DFZ_SRC_DIR/rbenv/ruby-build
-    p6_git_p6_pull
-  )
-  (
-    p6_dir_cd $P6_DFZ_SRC_DIR/jf/rbenv-gemset
-    p6_git_p6_pull
-  )
+  p6_dir_run "$P6_DFZ_SRC_DIR/rbenv/rbenv" p6_git_p6_pull
+  p6_dir_run "$P6_DFZ_SRC_DIR/rbenv/ruby-build" p6_git_p6_pull
+  p6_dir_run "$P6_DFZ_SRC_DIR/jf/rbenv-gemset" p6_git_p6_pull
 
   # nuke the old one
   local previous=$(rbenv install -l 2>&1 | grep -v "[a-z]" | grep "[0-9]" | tail -2 | head -1)
@@ -70,6 +73,8 @@ p6df::modules::ruby::langs() {
 
   gem install bundler
   rbenv rehash
+
+  p6_return_void
 }
 
 ######################################################################
