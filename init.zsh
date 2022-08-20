@@ -57,16 +57,16 @@ p6df::modules::ruby::vscodes() {
 ######################################################################
 p6df::modules::ruby::langs() {
 
-  p6_dir_run "$P6_DFZ_SRC_DIR/rbenv/rbenv" p6_git_p6_pull
-  p6_dir_run "$P6_DFZ_SRC_DIR/rbenv/ruby-build" p6_git_p6_pull
-  p6_dir_run "$P6_DFZ_SRC_DIR/jf/rbenv-gemset" p6_git_p6_pull
+  p6_run_dir "$P6_DFZ_SRC_DIR/rbenv/rbenv" p6_git_p6_pull
+  p6_run_dir "$P6_DFZ_SRC_DIR/rbenv/ruby-build" p6_git_p6_pull
+  p6_run_dir "$P6_DFZ_SRC_DIR/jf/rbenv-gemset" p6_git_p6_pull
 
   # nuke the old one
-  local previous=$(rbenv install -l 2>&1 | grep -v "[a-z]" | grep "[0-9]" | tail -2 | head -1)
+  local previous=$(p6df::modules::ruby::rbenv::latest::installed)
   rbenv uninstall -f $previous
 
   # get the shiny one
-  local latest=$(rbenv install -l 2>&1 | grep -v "[a-z]" | grep "[0-9]" | tail -1)
+  local latest=$(p6df::modules::ruby::rbenv::latest)
   rbenv install $latest
   rbenv global $latest
   rbenv rehash
@@ -80,6 +80,30 @@ p6df::modules::ruby::langs() {
 ######################################################################
 #<
 #
+# Function: p6df::modules::ruby::rbenv::latest()
+#
+#>
+######################################################################
+p6df::modules::ruby::rbenv::latest() {
+
+  rbenv install -l 2>&1 | p6_filter_select "[a-z]" | p6_filter_select "[0-9]" | p6_filter_from_end "2"
+}
+
+######################################################################
+#<
+#
+# Function: p6df::modules::ruby::rbenv::latest::installed()
+#
+#>
+######################################################################
+p6df::modules::ruby::rbenv::latest::installed() {
+
+  rbenv install -l 2>&1 | p6_filter_select "[a-z]" | p6_filter_select "[0-9]" | p6_filter_last "1"
+}
+
+######################################################################
+#<
+#
 # Function: p6df::modules::ruby::init()
 #
 #  Environment:	 P6_DFZ_SRC_DIR
@@ -87,61 +111,20 @@ p6df::modules::ruby::langs() {
 ######################################################################
 p6df::modules::ruby::init() {
 
-  p6df::modules::ruby::rbenv::init "$P6_DFZ_SRC_DIR"
+  p6df::core::lang::mgr::init "$P6_DFZ_SRC_DIR/rbenv/rbenv" "rb"
 
-  p6df::modules::ruby::prompt::init
+  p6_return_void
 }
 
 ######################################################################
 #<
 #
-# Function: p6df::modules::ruby::prompt::init()
-#
-#>
-######################################################################
-p6df::modules::ruby::prompt::init() {
-
-  p6df::core::prompt::line::add "p6_lang_prompt_info"
-  p6df::core::prompt::line::add "p6_lang_envs_prompt_info"
-  p6df::core::prompt::lang::line::add rb
-}
-
-######################################################################
-#<
-#
-# Function: p6df::modules::ruby::rbenv::init(dir)
-#
-#  Args:
-#	dir -
-#
-#  Environment:	 DISABLE_ENVS HAS_RBENV RBENV_ROOT
-#>
-######################################################################
-p6df::modules::ruby::rbenv::init() {
-  local dir="$1"
-
-  [ -n "$DISABLE_ENVS" ] && return
-
-  RBENV_ROOT=$dir/rbenv/rbenv
-
-  if [ -x $RBENV_ROOT/bin/rbenv ]; then
-    export RBENV_ROOT
-    export HAS_RBENV=1
-
-    p6_path_if $RBENV_ROOT/bin
-    eval "$(p6_run_code rbenv init - zsh)"
-  fi
-}
-
-######################################################################
-#<
-#
-# Function: p6_rb_env_prompt_info()
+# Function: p6df::modules::rb::env::prompt::info()
 #
 #  Environment:	 RBENV_ROOT
 #>
 ######################################################################
-p6_rb_env_prompt_info() {
+p6df::modules::rb::env::prompt::info() {
 
   local gemset=$(rbenv gemset active 2>&1 | awk '{print $1}' | grep -v rbenv)
   local gem_home=$(gem env home)
