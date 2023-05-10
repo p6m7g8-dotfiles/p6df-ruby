@@ -44,6 +44,8 @@ p6df::modules::ruby::home::symlink() {
 ######################################################################
 p6df::modules::ruby::vscodes() {
 
+  code --install-extension rebornix.ruby
+  code --install-extension Shopify.ruby-lsp
   code --install-extension bung87.vscode-gemfile
 }
 
@@ -71,7 +73,26 @@ p6df::modules::ruby::langs() {
   rbenv global $latest
   rbenv rehash
 
+  gem install enum
   gem install bundler
+  gem install guard-rspec
+  gem install cucumber
+  gem install gherkin
+  gem install simplecov
+  gem install pry
+  gem install pry-stack_explorer
+  gem install pry-bond
+  gem install pry-coolline
+  gem install pry-byebug
+  gem install stackprof
+  gem install bundler-audit
+  gem install brakeman
+  gem install fasterer
+  gem install reek
+  gem install rubocop
+  gem install sorbet-runtime
+  gem install sorbet
+
   rbenv rehash
 
   p6_return_void
@@ -86,7 +107,7 @@ p6df::modules::ruby::langs() {
 ######################################################################
 p6df::modules::ruby::rbenv::latest() {
 
-  rbenv install -l 2>&1 | p6_filter_select "[a-z]" | p6_filter_select "[0-9]" | p6_filter_from_end "2"
+  rbenv install -l 2>&1 | grep "^[0-9]" |  p6_filter_last "1"
 }
 
 ######################################################################
