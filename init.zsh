@@ -44,8 +44,9 @@ p6df::modules::ruby::home::symlink() {
 ######################################################################
 p6df::modules::ruby::vscodes() {
 
-  code --install-extension rebornix.ruby
   code --install-extension Shopify.ruby-lsp
+  code --install-extension KoichiSasada.vscode-rdbg
+  code --install-extension sorbet.sorbet-vscode-extension
   code --install-extension bung87.vscode-gemfile
 }
 
