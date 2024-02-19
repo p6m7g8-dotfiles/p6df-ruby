@@ -74,25 +74,27 @@ p6df::modules::ruby::langs() {
   rbenv global $latest
   rbenv rehash
 
-  gem install enum
-  gem install bundler
-  gem install guard-rspec
-  gem install cucumber
-  gem install gherkin
-  gem install simplecov
-  gem install pry
-  gem install pry-stack_explorer
-  gem install pry-bond
-  gem install pry-coolline
-  gem install pry-byebug
-  gem install stackprof
-  gem install bundler-audit
   gem install brakeman
+  gem install bundler
+  gem install bundler-audit
+  gem install cucumber
+  gem install enum
   gem install fasterer
+  gem install foreman
+  gem install gherkin
+  gem install guard-rspec
+  gem install pry
+  gem install pry-bond
+  gem install pry-byebug
+  gem install pry-coolline
+  gem install pry-stack_explorer
   gem install reek
   gem install rubocop
-  gem install sorbet-runtime
+  gem install simplecov
   gem install sorbet
+  gem install sorbet-runtime
+  gem install stackprof
+  gem install tapioca
 
   rbenv rehash
 
@@ -108,7 +110,7 @@ p6df::modules::ruby::langs() {
 ######################################################################
 p6df::modules::ruby::rbenv::latest() {
 
-  rbenv install -l 2>&1 | grep "^[0-9]" |  p6_filter_last "1"
+  rbenv install -l 2>&1 | grep "^[0-9]" | p6_filter_last "1"
 }
 
 ######################################################################
@@ -151,12 +153,8 @@ p6df::modules::rb::env::prompt::info() {
   local gemset=$(rbenv gemset active 2>&1 | awk '{print $1}' | grep -v rbenv)
   local gem_home=$(gem env home)
 
-  if p6_string_eq "no active gemsets" "$gemset" || p6_string_eq "no" "$gemset"; then
+  if ! p6_string_eq "no active gemsets" "$gemset" && ! p6_string_eq "no" "$gemset"; then
     p6_echo "rbenv_root:\t  $RBENV_ROOT"
     p6_echo "gem_home:\t  $gem_home"
-  else
-    p6_echo "rbenv_root:\t  $RBENV_ROOT"
-    p6_echo "gem_home:\t  $gem_home"
-    p6_echo "gemset:\t\t  $gemset"
   fi
 }
