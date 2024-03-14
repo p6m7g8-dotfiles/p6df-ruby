@@ -45,6 +45,8 @@
 #### p6df-ruby/init.zsh:
 
 - p6df::modules::rb::env::prompt::info()
+- p6df::modules::ruby::aliases::init()
+- p6df::modules::ruby::bundle()
 - p6df::modules::ruby::deps()
 - p6df::modules::ruby::home::symlink()
 - p6df::modules::ruby::init()
