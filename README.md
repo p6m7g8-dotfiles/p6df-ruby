@@ -10,8 +10,7 @@
   - [Summary](#summary)
   - [Contributing](#contributing)
   - [Code of Conduct](#code-of-conduct)
-  - [Changes](#changes)
-    - [Usage](#usage)
+  - [Usage](#usage)
   - [Author](#author)
 
 ### Badges
@@ -34,11 +33,14 @@
 
 - [Code of Conduct](https://github.com/p6m7g8/.github/blob/master/CODE_OF_CONDUCT.md)
 
-## Changes
-
-- [Change Log](CHANGELOG.md)
-
 ## Usage
+
+
+### Aliases
+
+- p6_bundle -> p6df::modules::ruby::cli::bundle
+
+### Functions
 
 ### p6df-ruby:
 
@@ -46,17 +48,34 @@
 
 - p6df::modules::rb::env::prompt::info()
 - p6df::modules::ruby::aliases::init()
-- p6df::modules::ruby::bundle()
 - p6df::modules::ruby::deps()
 - p6df::modules::ruby::home::symlink()
-- p6df::modules::ruby::init()
+- p6df::modules::ruby::init(_module, dir)
 - p6df::modules::ruby::langs()
-- p6df::modules::ruby::rbenv::latest()
-- p6df::modules::ruby::rbenv::latest::installed()
 - p6df::modules::ruby::vscodes()
 
 
+### p6df-ruby/lib:
 
+#### p6df-ruby/lib/cli.sh:
+
+- p6df::modules::ruby::cli::bundle()
+
+#### p6df-ruby/lib/rbenv.sh:
+
+- p6df::modules::ruby::rbenv::latest()
+- p6df::modules::ruby::rbenv::latest::installed()
+
+
+
+## Hier
+```text
+.
+├── cli.sh
+└── rbenv.sh
+
+1 directory, 2 files
+```
 ## Author
 
 Philip M . Gollucci <pgollucci@p6m7g8.com>
