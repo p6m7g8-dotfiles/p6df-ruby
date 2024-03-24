@@ -105,52 +105,13 @@ p6df::modules::ruby::langs() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::ruby::rbenv::latest()
-#
-#>
-######################################################################
-p6df::modules::ruby::rbenv::latest() {
-
-  rbenv install -l 2>&1 | grep "^[0-9]" | p6_filter_last "1"
-}
-
-######################################################################
-#<
-#
-# Function: p6df::modules::ruby::rbenv::latest::installed()
-#
-#>
-######################################################################
-p6df::modules::ruby::rbenv::latest::installed() {
-
-  rbenv install -l 2>&1 | p6_filter_select "[a-z]" | p6_filter_select "[0-9]" | p6_filter_last "1"
-}
-
-######################################################################
-#<
-#
-# Function: p6df::modules::ruby::init()
-#
-#  Environment:	 P6_DFZ_SRC_DIR
-#>
-######################################################################
-p6df::modules::ruby::init() {
-
-  p6df::core::lang::mgr::init "$P6_DFZ_SRC_DIR/rbenv/rbenv" "rb"
-
-  p6_return_void
-}
-
-######################################################################
-#<
-#
 # Function: p6df::modules::ruby::aliases::init()
 #
 #>
 ######################################################################
 p6df::modules::ruby::aliases::init() {
 
-  alias p6_bundle="p6df::modules::ruby::bundle"
+  p6_alias "p6_bundle" "p6df::modules::ruby::cli::bundle"
 
   p6_return_void
 }
@@ -158,26 +119,22 @@ p6df::modules::ruby::aliases::init() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::ruby::bundle()
+# Function: p6df::modules::ruby::init(_module, dir)
 #
-#  Environment:	 GEM_HOME
+#  Args:
+#	_module -
+#	dir -
+#
+#  Environment:	 P6_DFZ_SRC_DIR
 #>
 ######################################################################
-p6df::modules::ruby::bundle() {
+p6df::modules::ruby::init() {
+  local _module="$1"
+  local dir="$2"
 
-  local cwd=`pwd`
-  local name=$(p6_uri_name "$cwd")
-  local date=$(p6_dt_now)
-  local ruby_ver=$(ruby -v | awk '{print $2}')
-  local sha=$(p6_git_util_sha_short_get)
+  p6_bootstrap "$dir"
 
-  local gemset="${name}_${ruby_ver}_${date}_${sha}"
-
-  p6_echo "$gemset" > .rbenv-gemsets
-
-  bundle install  
-  rbenv gemset list
-  p6_msg $GEM_HOME
+  p6df::core::lang::mgr::init "$P6_DFZ_SRC_DIR/rbenv/rbenv" "rb"
 
   p6_return_void
 }
