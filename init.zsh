@@ -61,9 +61,9 @@ p6df::modules::ruby::vscodes() {
 ######################################################################
 p6df::modules::ruby::langs() {
 
-  p6_run_dir "$P6_DFZ_SRC_DIR/rbenv/rbenv" p6_git_p6_pull
-  p6_run_dir "$P6_DFZ_SRC_DIR/rbenv/ruby-build" p6_git_p6_pull
-  p6_run_dir "$P6_DFZ_SRC_DIR/jf/rbenv-gemset" p6_git_p6_pull
+  p6_run_dir "$P6_DFZ_SRC_DIR/rbenv/rbenv" p6_git_cli_pull_rebase_autostash_ff_only
+  p6_run_dir "$P6_DFZ_SRC_DIR/rbenv/ruby-build" p6_git_cli_pull_rebase_autostash_ff_only
+  p6_run_dir "$P6_DFZ_SRC_DIR/jf/rbenv-gemset" p6_git_cli_pull_rebase_autostash_ff_only
 
   # nuke the old one
   local previous=$(p6df::modules::ruby::rbenv::latest::installed)

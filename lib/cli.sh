@@ -11,7 +11,7 @@ p6df::modules::ruby::cli::bundle() {
 
     local cwd=$(pwd)
     local name=$(p6_uri_name "$cwd")
-    local date=$(p6_dt_now)
+    local date=$(p6_date_point_now_ymd)
     local ruby_ver=$(ruby -v | awk '{print $2}')
     local sha=$(p6_git_util_sha_short_get)
 
