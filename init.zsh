@@ -144,15 +144,32 @@ p6df::modules::ruby::init() {
 #
 # Function: p6df::modules::rb::env::prompt::info()
 #
-#  Environment:	 RBENV_ROOT
+#  Environment:	 P6_DFZ_REAL_CMD RBENV_ROOT
 #>
 ######################################################################
 p6df::modules::rb::env::prompt::info() {
 
-  local gemset=$(rbenv gemset active 2>&1 | awk '{print $1}' | grep -v rbenv)
-  local gem_home=$(gem env home)
+  local cache_file="/tmp/p6_lang_cache.txt"
+  local cache_key="rbenv"
 
-  if ! p6_string_eq "no active gemsets" "$gemset" && ! p6_string_eq "no" "$gemset"; then
+  case "$P6_DFZ_REAL_CMD" in
+  *rbenv* | *cd*)
+    grep -v "^$cache_key=" "$cache_file" >/tmp/p6_lang_cache.tmp && mv /tmp/p6_lang_cache.tmp "$cache_file"
+
+    local gemset=$(rbenv gemset active 2>&1 | awk '{print $1}' | grep -v rbenv)
+    local gem_home=$(gem env home)
+    if ! p6_string_eq "no active gemsets" "$gemset" && ! p6_string_eq "no" "$gemset"; then
+      echo "$cache_key=$gemset|$gem_home" >>"$cache_file"
+    fi
+    ;;
+  esac
+
+  local env=$(grep -E "^$cache_key=" "$cache_file" | tail -1 | cut -d '=' -f 2)
+
+  if ! p6_string_blank "$env"; then
+    local gemset=$(echo "$env" | cut -d '|' -f 1)
+    local gem_home=$(echo "$env" | cut -d '|' -f 2)
+
     p6_echo "rbenv_root:\t  $RBENV_ROOT"
     p6_echo "gem_home:\t  $gem_home"
   fi
