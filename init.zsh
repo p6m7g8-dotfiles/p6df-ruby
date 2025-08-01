@@ -82,7 +82,7 @@ p6df::modules::ruby::langs() {
   gem install enum
   gem install fasterer
   gem install foreman
-  gem install gherkin
+  # gem install gherkin
   gem install guard-rspec
   gem install pry
   gem install pry-bond
