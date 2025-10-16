@@ -144,7 +144,7 @@ p6df::modules::ruby::init() {
 #
 # Function: p6df::modules::rb::env::prompt::info()
 #
-#  Environment:	 P6_DFZ_REAL_CMD RBENV_ROOT
+#  Environment:	 P6_DFZ_PROMPT_CACHE P6_DFZ_REAL_CMD RBENV_ROOT
 #>
 ######################################################################
 p6df::modules::rb::env::prompt::info() {

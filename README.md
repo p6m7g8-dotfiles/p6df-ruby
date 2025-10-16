@@ -52,11 +52,11 @@
 
 ```text
 .
-├── README.md
 ├── init.zsh
 ├── lib
 │   ├── cli.sh
 │   └── rbenv.sh
+├── README.md
 └── share
 
 3 directories, 4 files
