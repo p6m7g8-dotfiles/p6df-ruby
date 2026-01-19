@@ -173,22 +173,11 @@ p6df::modules::ruby::prompt::env() {
 ######################################################################
 p6df::modules::ruby::prompt::lang() {
 
-  local ver
+  local str
+  str=$(p6df::core::lang::prompt::lang \
+    "rb" \
+    "rbenv version-name 2>/dev/null" \
+    "ruby -v | awk '{print $2}'")
 
-  local ver_mgr
-  ver_mgr=$(rbenv version-name 2>/dev/null)
-  if p6_string_eq "$ver_mgr" "system"; then
-    local ver_sys="sys@"
-    local v=$(ruby -v | awk '{print $2}')
-    if p6_string_blank "$v"; then
-      ver_sys="sys:no"
-    fi
-    ver="$ver_sys"
-  else
-    ver="$ver_mgr"
-  fi
-
-  local str="rb:$ver"
-
-  p6_return "$str"
+  p6_return_str "$str"
 }
