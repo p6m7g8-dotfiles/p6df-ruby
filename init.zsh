@@ -179,8 +179,7 @@ p6df::modules::ruby::prompt::lang() {
   ver_mgr=$(rbenv version-name 2>/dev/null)
   if p6_string_eq "$ver_mgr" "system"; then
     local ver_sys="sys@"
-    local v
-    v=$(ruby -v | awk '{print $2}')
+    local v=$(ruby -v | awk '{print $2}')
     if p6_string_blank "$v"; then
       ver_sys="sys:no"
     fi
