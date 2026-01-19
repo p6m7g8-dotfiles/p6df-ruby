@@ -21,6 +21,7 @@
 ### Aliases
 
 - p6_bundle IS p6df::modules::ruby::cli::bundle
+
 ### Functions
 
 ## p6df-ruby
