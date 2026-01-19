@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 ######################################################################
 #<
 #
@@ -67,12 +68,12 @@ p6df::modules::ruby::langs() {
 
   # nuke the old one
   local previous=$(p6df::modules::ruby::rbenv::latest::installed)
-  rbenv uninstall -f $previous
+  rbenv uninstall -f "$previous"
 
   # get the shiny one
   local latest=$(p6df::modules::ruby::rbenv::latest)
-  rbenv install $latest
-  rbenv global $latest
+  rbenv install "$latest"
+  rbenv global "$latest"
   rbenv rehash
 
   gem install brakeman
@@ -142,34 +143,42 @@ p6df::modules::ruby::init() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::rb::env::prompt::info()
+# Function: str str = p6df::modules::ruby::prompt::env()
 #
-#  Environment:	 P6_DFZ_PROMPT_CACHE P6_DFZ_REAL_CMD RBENV_ROOT
+#  Returns:
+#	str - str
+#
+#  Environment:	 P6_NL RBENV_ROOT
 #>
 ######################################################################
-p6df::modules::rb::env::prompt::info() {
-
-  local cache_key="rbenv"
-
-  case "$P6_DFZ_REAL_CMD" in
-  *rbenv* | *cd*)
-    grep -v "^$cache_key=" "$P6_DFZ_PROMPT_CACHE" >"$P6_DFZ_PROMPT_CACHE.tmp" && mv "$P6_DFZ_PROMPT_CACHE.tmp" "$P6_DFZ_PROMPT_CACHE"
+p6df::modules::ruby::prompt::env() {
 
     local gemset=$(rbenv gemset active 2>&1 | awk '{print $1}' | grep -v rbenv)
     local gem_home=$(gem env home)
-    if ! p6_string_eq "no active gemsets" "$gemset" && ! p6_string_eq "no" "$gemset"; then
-      echo "$cache_key=$gemset|$gem_home" >>"$P6_DFZ_PROMPT_CACHE"
+
+    # "rbenv_root:\t  $RBENV_ROOT"
+    local str="gem_home:\t  $gem_home"
+    if ! p6_string_eq "$gemset" "no"; then
+      str=$(p6_string_append "$str" "gemset:\t\t  $gemset" "$P6_NL")
     fi
-    ;;
-  esac
 
-  local env=$(grep -E "^$cache_key=" "$P6_DFZ_PROMPT_CACHE" | tail -1 | cut -d '=' -f 2)
+    p6_return_str "$str"
+}
 
-  if ! p6_string_blank "$env"; then
-    local gemset=$(echo "$env" | cut -d '|' -f 1)
-    local gem_home=$(echo "$env" | cut -d '|' -f 2)
+######################################################################
+#<
+#
+# Function: p6df::modules::ruby::prompt::lang()
+#
+#>
+######################################################################
+p6df::modules::ruby::prompt::lang() {
 
-    p6_echo "rbenv_root:\t  $RBENV_ROOT"
-    p6_echo "gem_home:\t  $gem_home"
-  fi
+  local str
+  str=$(p6df::core::lang::prompt::lang \
+    "rb" \
+    "rbenv version-name 2>/dev/null" \
+    "ruby -v | awk '{print $2}'")
+
+  p6_return_str "$str"
 }

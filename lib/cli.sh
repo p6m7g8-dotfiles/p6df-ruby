@@ -21,7 +21,7 @@ p6df::modules::ruby::cli::bundle() {
 
     bundle install
     rbenv gemset list
-    p6_msg $GEM_HOME
+    p6_msg "$GEM_HOME"
 
     p6_return_void
 }
