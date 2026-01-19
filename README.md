@@ -5,8 +5,6 @@
 ## Badges
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-yellowgreen.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Mergify](https://img.shields.io/endpoint.svg?url=https://gh.mergify.io/badges//p6df-ruby/&style=flat)](https://mergify.io)
-[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](<https://gitpod.io/#https://github.com//p6df-ruby>)
 
 ## Summary
 
@@ -29,13 +27,14 @@
 
 ### p6df-ruby/init.zsh
 
-- p6df::modules::rb::env::prompt::info()
 - p6df::modules::ruby::aliases::init()
 - p6df::modules::ruby::deps()
 - p6df::modules::ruby::home::symlink()
 - p6df::modules::ruby::init(_module, dir)
 - p6df::modules::ruby::langs()
+- p6df::modules::ruby::prompt::lang()
 - p6df::modules::ruby::vscodes()
+- str str = p6df::modules::ruby::prompt::env()
 
 ## p6df-ruby/lib
 
