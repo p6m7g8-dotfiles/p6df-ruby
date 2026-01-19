@@ -148,7 +148,7 @@ p6df::modules::ruby::init() {
 #  Returns:
 #	str - str
 #
-#  Environment:	 P6_NL RBENV_ROOT
+#  Environment:	 P6_NL
 #>
 ######################################################################
 p6df::modules::ruby::prompt::env() {
@@ -168,7 +168,10 @@ p6df::modules::ruby::prompt::env() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::ruby::prompt::lang()
+# Function: str str = p6df::modules::ruby::prompt::lang()
+#
+#  Returns:
+#	str - str
 #
 #>
 ######################################################################
