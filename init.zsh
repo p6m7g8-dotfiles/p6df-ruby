@@ -148,18 +148,16 @@ p6df::modules::ruby::init() {
 #  Returns:
 #	str - str
 #
-#  Environment:	 P6_NL
 #>
 ######################################################################
 p6df::modules::ruby::prompt::env() {
 
     local gemset=$(rbenv gemset active 2>&1 | awk '{print $1}' | grep -v rbenv)
-    local gem_home=$(gem env home)
 
     # "rbenv_root:\t  $RBENV_ROOT"
-    local str="gem_home:\t  $gem_home"
+    local str=""
     if ! p6_string_eq "$gemset" "no"; then
-      str=$(p6_string_append "$str" "gemset:\t\t  $gemset" "$P6_NL")
+      str="gemset:\t\t  $gemset"
     fi
 
     p6_return_str "$str"
