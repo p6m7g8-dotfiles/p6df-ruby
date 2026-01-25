@@ -152,7 +152,7 @@ p6df::modules::ruby::init() {
 ######################################################################
 p6df::modules::ruby::prompt::env() {
 
-    local gemset=$(rbenv gemset active 2>&1 | awk '{print $1}' | grep -v rbenv)
+  local gemset=$(rbenv gemset active 2>&1 | p6_filter_column_pluck 1 | p6_filter_row_exclude rbenv)
 
     # "rbenv_root:\t  $RBENV_ROOT"
     local str=""
@@ -179,7 +179,7 @@ p6df::modules::ruby::prompt::lang() {
   str=$(p6df::core::lang::prompt::lang \
     "rb" \
     "rbenv version-name 2>/dev/null" \
-    "ruby -v | awk '{print $2}'")
+    "ruby -v | p6_filter_column_pluck 2")
 
   p6_return_str "$str"
 }
