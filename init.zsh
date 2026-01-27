@@ -46,10 +46,33 @@ p6df::modules::ruby::home::symlink() {
 ######################################################################
 p6df::modules::ruby::vscodes() {
 
-  code --install-extension Shopify.ruby-lsp
-  code --install-extension KoichiSasada.vscode-rdbg
-  code --install-extension sorbet.sorbet-vscode-extension
-  code --install-extension bung87.vscode-gemfile
+  p6df::modules::vscode::extension::install Shopify.ruby-lsp
+  p6df::modules::vscode::extension::install KoichiSasada.vscode-rdbg
+  p6df::modules::vscode::extension::install sorbet.sorbet-vscode-extension
+  p6df::modules::vscode::extension::install bung87.vscode-gemfile
+
+  p6_return_void
+}
+
+######################################################################
+#<
+#
+# Function: str json = p6df::modules::ruby::vscodes::config()
+#
+#  Returns:
+#	str - json
+#
+#>
+######################################################################
+p6df::modules::ruby::vscodes::config() {
+
+  cat <<'EOF'
+  "[ruby]": {
+    "editor.defaultFormatter": "shopify.ruby-lsp"
+  }
+EOF
+
+  p6_return_void
 }
 
 ######################################################################
