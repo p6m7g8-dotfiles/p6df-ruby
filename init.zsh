@@ -13,7 +13,6 @@ p6df::modules::ruby::deps() {
     rbenv/rbenv
     rbenv/ruby-build
     jf/rbenv-gemset
-    ohmyzsh/ohmyzsh:plugins/thor
     ohmyzsh/ohmyzsh:plugins/bundler
     ohmyzsh/ohmyzsh:plugins/ruby
   )
