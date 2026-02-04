@@ -44,8 +44,12 @@ TODO: Add a short summary of this module.
 - `p6df::modules::ruby::deps()`
 - `p6df::modules::ruby::home::symlink()`
 - `p6df::modules::ruby::init(_module, dir)`
+  - Args:
+    - _module - 
+    - dir - 
 - `p6df::modules::ruby::langs()`
 - `p6df::modules::ruby::vscodes()`
+- `p6df::modules::ruby::vscodes::config()`
 - `str str = p6df::modules::ruby::prompt::env()`
 - `str str = p6df::modules::ruby::prompt::lang()`
 
