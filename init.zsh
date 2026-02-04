@@ -56,10 +56,7 @@ p6df::modules::ruby::vscodes() {
 ######################################################################
 #<
 #
-# Function: str json = p6df::modules::ruby::vscodes::config()
-#
-#  Returns:
-#	str - json
+# Function: p6df::modules::ruby::vscodes::config()
 #
 #>
 ######################################################################
