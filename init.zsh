@@ -64,7 +64,7 @@ p6df::modules::ruby::vscodes::config() {
 
   cat <<'EOF'
   "[ruby]": {
-    "editor.defaultFormatter": "shopify.ruby-lsp"
+    "editor.defaultFormatter": "Shopify.ruby-lsp"
   }
 EOF
 
