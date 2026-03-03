@@ -45,8 +45,8 @@ TODO: Add a short summary of this module.
 - `p6df::modules::ruby::home::symlink()`
 - `p6df::modules::ruby::init(_module, dir)`
   - Args:
-    - _module - 
-    - dir - 
+    - _module -
+    - dir -
 - `p6df::modules::ruby::langs()`
 - `p6df::modules::ruby::vscodes()`
 - `p6df::modules::ruby::vscodes::config()`
