@@ -21,12 +21,12 @@ p6df::modules::ruby::deps() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::ruby::home::symlink()
+# Function: p6df::modules::ruby::home::symlinks()
 #
 #  Environment:	 P6_DFZ_SRC_DIR P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
 #>
 ######################################################################
-p6df::modules::ruby::home::symlink() {
+p6df::modules::ruby::home::symlinks() {
 
   p6_dir_mk "$P6_DFZ_SRC_DIR/rbenv/rbenv/plugins"
   p6_file_symlink "$P6_DFZ_SRC_DIR/rbenv/ruby-build" "$P6_DFZ_SRC_DIR/rbenv/rbenv/plugins/ruby-build"
@@ -34,6 +34,7 @@ p6df::modules::ruby::home::symlink() {
 
   p6_file_symlink "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-ruby/share/.gemrc" "$HOME/.gemrc"
   p6_file_symlink "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-ruby/share/.riplrc" "$HOME/.riplrc"
+  p6_file_symlink "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-ruby/share/.pryrc" "$HOME/.pryrc"
 
   p6_return_void
 }
