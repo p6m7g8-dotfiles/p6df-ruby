@@ -213,6 +213,6 @@ p6df::modules::ruby::prompt::lang() {
 ######################################################################
 p6df::modules::ruby::prompt::env() {
 
-  p6_return_words 'ruby' '$RBENV_VERSION'
+  p6_return_words 'ruby' "$"
 }
 
