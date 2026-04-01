@@ -23,7 +23,7 @@ p6df::modules::ruby::deps() {
 #
 # Function: p6df::modules::ruby::home::symlinks()
 #
-#  Environment:	 P6_DFZ_SRC_DIR P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
+#  Environment:	 HOME P6_DFZ_SRC_DIR P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
 #>
 ######################################################################
 p6df::modules::ruby::home::symlinks() {
@@ -134,6 +134,8 @@ p6df::modules::ruby::langs() {
 ######################################################################
 p6df::modules::ruby::aliases::init() {
 
+  local _module="$1"
+  local _dir="$2"
   p6_alias "p6_bundle" "p6df::modules::ruby::cli::bundle"
 
   p6_return_void
@@ -142,20 +144,12 @@ p6df::modules::ruby::aliases::init() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::ruby::init(_module, dir)
-#
-#  Args:
-#	_module -
-#	dir -
+# Function: p6df::modules::ruby::langmgr::init()
 #
 #  Environment:	 P6_DFZ_SRC_DIR
 #>
 ######################################################################
-p6df::modules::ruby::init() {
-  local _module="$1"
-  local dir="$2"
-
-  p6_bootstrap "$dir"
+p6df::modules::ruby::langmgr::init() {
 
   p6df::core::lang::mgr::init "$P6_DFZ_SRC_DIR/rbenv/rbenv" "rb"
 
@@ -165,21 +159,21 @@ p6df::modules::ruby::init() {
 ######################################################################
 #<
 #
-# Function: str str = p6df::modules::ruby::prompt::env()
+# Function: str str = p6df::modules::ruby::prompt::runtime()
 #
 #  Returns:
 #	str - str
 #
 #>
 ######################################################################
-p6df::modules::ruby::prompt::env() {
+p6df::modules::ruby::prompt::runtime() {
 
-  local gemset=$(rbenv gemset active 2>&1 | p6_filter_column_pluck 1 | p6_filter_row_exclude rbenv)
+  local gemset=$(rbenv gemset active 2>/dev/null | p6_filter_column_pluck 1)
 
     # "rbenv_root:\t  $RBENV_ROOT"
     local str=""
-    if ! p6_string_eq "$gemset" "no"; then
-      str="gemset:\t\t  $gemset"
+    if p6_string_blank_NOT "$gemset" && ! p6_string_eq "$gemset" "no"; then
+      str="$(p6_string_space_pad "gemset:" 16)$gemset"
     fi
 
     p6_return_str "$str"
@@ -205,3 +199,20 @@ p6df::modules::ruby::prompt::lang() {
 
   p6_return_str "$str"
 }
+
+######################################################################
+#<
+#
+# Function: words ruby $RBENV_VERSION = p6df::modules::ruby::prompt::env()
+#
+#  Returns:
+#	words - ruby $RBENV_VERSION
+#
+#  Environment:	 RBENV_VERSION
+#>
+######################################################################
+p6df::modules::ruby::prompt::env() {
+
+  p6_return_words 'ruby' "$"
+}
+
