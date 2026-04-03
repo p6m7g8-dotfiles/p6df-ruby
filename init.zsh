@@ -170,13 +170,12 @@ p6df::modules::ruby::prompt::runtime() {
 
   local gemset=$(rbenv gemset active 2>/dev/null | p6_filter_column_pluck 1)
 
-    # "rbenv_root:\t  $RBENV_ROOT"
-    local str=""
-    if p6_string_blank_NOT "$gemset" && ! p6_string_eq "$gemset" "no"; then
-      str="$(p6_string_space_pad "gemset:" 16)$gemset"
-    fi
+  local str=""
+  if p6_string_blank_NOT "$gemset" && ! p6_string_eq "$gemset" "no"; then
+    str="$(p6_string_space_pad "gemset:" 16)$gemset"
+  fi
 
-    p6_return_str "$str"
+  p6_return_str "$str"
 }
 
 ######################################################################
@@ -213,6 +212,6 @@ p6df::modules::ruby::prompt::lang() {
 ######################################################################
 p6df::modules::ruby::prompt::env() {
 
-  p6_return_words 'ruby' "$"
+  p6_return_words 'ruby' '$RBENV_ROOT'
 }
 
