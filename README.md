@@ -40,18 +40,19 @@ TODO: Add a short summary of this module.
 
 ##### p6df-ruby/init.zsh
 
-- `p6df::modules::ruby::aliases::init()`
-- `p6df::modules::ruby::deps()`
-- `p6df::modules::ruby::home::symlink()`
-- `p6df::modules::ruby::init(_module, dir)`
+- `p6df::modules::ruby::aliases::init(_module, _dir)`
   - Args:
-    - _module -
-    - dir -
+    - _module
+    - _dir
+- `p6df::modules::ruby::deps()`
+- `p6df::modules::ruby::home::symlinks()`
+- `p6df::modules::ruby::langmgr::init()`
 - `p6df::modules::ruby::langs()`
 - `p6df::modules::ruby::vscodes()`
 - `p6df::modules::ruby::vscodes::config()`
-- `str str = p6df::modules::ruby::prompt::env()`
 - `str str = p6df::modules::ruby::prompt::lang()`
+- `str str = p6df::modules::ruby::prompt::runtime()`
+- `words ruby = p6df::modules::ruby::prompt::env()`
 
 #### p6df-ruby/lib
 

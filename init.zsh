@@ -21,7 +21,11 @@ p6df::modules::ruby::deps() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::ruby::aliases::init()
+# Function: p6df::modules::ruby::aliases::init(_module, _dir)
+#
+#  Args:
+#	_module -
+#	_dir -
 #
 #>
 ######################################################################
@@ -202,12 +206,12 @@ p6df::modules::ruby::prompt::lang() {
 ######################################################################
 #<
 #
-# Function: words ruby $RBENV_VERSION = p6df::modules::ruby::prompt::env()
+# Function: words ruby = p6df::modules::ruby::prompt::env()
 #
 #  Returns:
-#	words - ruby $RBENV_VERSION
+#	words - ruby
 #
-#  Environment:	 RBENV_VERSION
+#  Environment:	 RBENV_ROOT
 #>
 ######################################################################
 p6df::modules::ruby::prompt::env() {
