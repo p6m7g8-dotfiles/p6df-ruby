@@ -1,5 +1,11 @@
 # shellcheck shell=bash
 ######################################################################
+#<
+#
+# Function: p6df::modules::ruby::deps()
+#
+#>
+######################################################################
 p6df::modules::ruby::deps() {
   ModuleDeps=(
     p6m7g8-dotfiles/p6df-zsh
@@ -13,6 +19,12 @@ p6df::modules::ruby::deps() {
 }
 
 ######################################################################
+#<
+#
+# Function: p6df::modules::ruby::aliases::init()
+#
+#>
+######################################################################
 p6df::modules::ruby::aliases::init() {
 
   local _module="$1"
@@ -23,6 +35,13 @@ p6df::modules::ruby::aliases::init() {
 }
 
 ######################################################################
+#<
+#
+# Function: p6df::modules::ruby::langmgr::init()
+#
+#  Environment:	 P6_DFZ_SRC_DIR
+#>
+######################################################################
 p6df::modules::ruby::langmgr::init() {
 
   p6df::core::lang::mgr::init "$P6_DFZ_SRC_DIR/rbenv/rbenv" "rb"
@@ -30,6 +49,13 @@ p6df::modules::ruby::langmgr::init() {
   p6_return_void
 }
 
+######################################################################
+#<
+#
+# Function: p6df::modules::ruby::home::symlinks()
+#
+#  Environment:	 HOME P6_DFZ_SRC_DIR P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
+#>
 ######################################################################
 p6df::modules::ruby::home::symlinks() {
 
@@ -44,6 +70,13 @@ p6df::modules::ruby::home::symlinks() {
   p6_return_void
 }
 
+######################################################################
+#<
+#
+# Function: p6df::modules::ruby::langs()
+#
+#  Environment:	 P6_DFZ_SRC_DIR
+#>
 ######################################################################
 p6df::modules::ruby::langs() {
 
@@ -89,6 +122,12 @@ p6df::modules::ruby::langs() {
 }
 
 ######################################################################
+#<
+#
+# Function: p6df::modules::ruby::vscodes()
+#
+#>
+######################################################################
 p6df::modules::ruby::vscodes() {
 
   p6df::modules::vscode::extension::install Shopify.ruby-lsp
@@ -99,6 +138,12 @@ p6df::modules::ruby::vscodes() {
   p6_return_void
 }
 
+######################################################################
+#<
+#
+# Function: p6df::modules::ruby::vscodes::config()
+#
+#>
 ######################################################################
 p6df::modules::ruby::vscodes::config() {
 
@@ -111,51 +156,6 @@ EOF
   p6_return_void
 }
 
-######################################################################
-#<
-#
-# Function: p6df::modules::ruby::deps()
-#
-#>
-######################################################################
-#<
-#
-# Function: p6df::modules::ruby::home::symlinks()
-#
-#  Environment:	 HOME P6_DFZ_SRC_DIR P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
-#>
-######################################################################
-#<
-#
-# Function: p6df::modules::ruby::vscodes()
-#
-#>
-######################################################################
-#<
-#
-# Function: p6df::modules::ruby::vscodes::config()
-#
-#>
-######################################################################
-#<
-#
-# Function: p6df::modules::ruby::langs()
-#
-#  Environment:	 P6_DFZ_SRC_DIR
-#>
-######################################################################
-#<
-#
-# Function: p6df::modules::ruby::aliases::init()
-#
-#>
-######################################################################
-#<
-#
-# Function: p6df::modules::ruby::langmgr::init()
-#
-#  Environment:	 P6_DFZ_SRC_DIR
-#>
 ######################################################################
 #<
 #
